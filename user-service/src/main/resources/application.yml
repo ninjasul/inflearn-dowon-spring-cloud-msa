@@ -1,0 +1,21 @@
+# server.port = 0: 사용가능한 포트 중 랜덤으로 지정.
+server:
+  port: 0
+
+spring:
+  application:
+    name: user-service
+
+eureka:
+  instance:
+    # ${spring.application.name} = user-service 가 노출될 것임.
+    # ${random.value} 여러 개의 마이크로 서비스가 기동되더라도 random 포트로 인해 인스턴스가 구분될 것임.
+    instance-id: ${spring.application.name}:${spring.application.instance.id:${random.value}}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka
+
+greeting:
+  message: Welcome to the Simple E-commerce.
